@@ -1,0 +1,82 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: probe
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: assignment3config
+  namespace: probe
+data:
+  configValue: snake
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: assignment3-service-probe
+  namespace: probe
+spec:
+  type: ClusterIP
+  clusterIP: 10.96.0.2
+  selector:
+    app: assignment3
+  ports:
+    - port: 30010
+      protocol: TCP
+      name: assignment3-port
+      targetPort: public
+
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: assignment3secret
+  namespace: probe
+data:
+  secretValue: c2VjcmV0U25ha2U=
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: assignment3
+  namespace: probe
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: assignment3
+  template:
+    metadata:
+      labels:
+        app: assignment3
+    spec:
+      containers:
+        - name: app
+          image: edwardlecoding/comp4016-assignment3:latest
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 30000
+              name: public
+          resources:
+            limits:
+              cpu: 500m
+          env:
+            - name: envValue
+              value: environmentSnake
+            - name: SECRET_VALUE
+              valueFrom:
+                secretKeyRef:
+                  name: assignment3secret
+                  key: secretValue
+            - name: CONFIG_VALUE
+              valueFrom:
+                configMapKeyRef:
+                  name: assignment3config
+                  key: configValue
+      volumes:
+        - name: config
+          configMap:
+            name: assignment3config
