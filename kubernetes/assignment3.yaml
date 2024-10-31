@@ -43,7 +43,7 @@ metadata:
   name: assignment3
   namespace: edwardlecoding
 spec:
-  serviceName: assignment3
+  serviceName: assignment3-service
   selector:
     matchLabels:
       app: assignment3

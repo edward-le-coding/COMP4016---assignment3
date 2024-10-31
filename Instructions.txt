@@ -1,6 +1,6 @@
 Repository: https://github.com/edward-le-coding/COMP4016---assignment3
 Image: edwardlecoding/comp4016-assignment3 (docker pull edwardlecoding/comp4016-assignment3:latest)
-Command: 
+Commands: 
 * kubectl apply -f assignment3_isAlive.yaml (probe namespace)
 * kubectl apply -f assignment3.yaml (assuming there is a Kubernetes cluster available)
 Comment: See GitHub repo for endpoint information. 
