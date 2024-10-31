@@ -4,5 +4,4 @@ Commands:
 * kubectl apply -f assignment3_isAlive.yaml (probe namespace)
 * kubectl apply -f assignment3.yaml (assuming there is a Kubernetes cluster available)
 Comment: See GitHub repo for endpoint information. 
-    1.) Get Pod ID: kubectl get pods --namespace=edwardlecoding 
-    2.) Congfigure autoscaler: kubectl autoscale statefulset assignment3 --namespace=edwardlecoding  --cpu-percent=30 --min=1 --max=5
+    1.) Congfigure autoscaler: kubectl autoscale statefulset assignment3 --namespace=edwardlecoding  --cpu-percent=30 --min=1 --max=5
